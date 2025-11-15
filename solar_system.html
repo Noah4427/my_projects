@@ -60,28 +60,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 900px;      /* major axis of the ellipse */
+  width: 900px;      /* major axis */
   height: 300px;     /* minor axis */
   margin-left: -450px;
   margin-top: -150px;
   border-radius: 50%;
   border: 1px dashed rgba(255, 255, 255, 0.25);
-  transform-origin: center;
-  /* >>> THIS makes it move <<< */
-  animation: halley-path 25s linear infinite;
-}
-
-/* rotation of the whole ellipse */
-@keyframes halley-path {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  /* NOTE: no animation here – orbit is static */
 }
 
 .halley {
   position: absolute;
   top: 50%;
-  left: 100%; /* comet sits at rightmost point of ellipse */
-  transform: translate(-50%, -50%);
+  left: 50%;   /* start from center of ellipse */
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -90,9 +81,13 @@
     0 0 10px rgba(255,255,200,0.9),
     0 0 40px rgba(255,150,50,0.8),
     0 0 90px rgba(255,120,0,0.5);
+
+  /* This makes the comet move along the ellipse */
+  transform: translate(450px, 0);         /* perihelion on the right */
+  animation: halley-travel 40s linear infinite;
 }
 
-/* comet tail */
+/* comet tail pointing backwards along path */
 .halley::after {
   content: "";
   position: absolute;
@@ -110,6 +105,23 @@
   );
   filter: blur(1px);
   pointer-events: none;
+}
+
+/* Comet moves around the ellipse itself */
+@keyframes halley-travel {
+  0%   { transform: translate(450px,   0px);   } /* perihelion */
+  8%   { transform: translate(389px,  75px);   }
+  17%  { transform: translate(225px, 130px);   }
+  25%  { transform: translate(0px,   150px);   } /* top */
+  33%  { transform: translate(-225px,130px);   }
+  42%  { transform: translate(-390px,75px);    }
+  50%  { transform: translate(-450px, 0px);    } /* aphelion */
+  58%  { transform: translate(-390px,-75px);   }
+  67%  { transform: translate(-225px,-130px);  }
+  75%  { transform: translate(0px,   -150px);  } /* bottom */
+  83%  { transform: translate(225px, -130px);  }
+  92%  { transform: translate(389px, -75px);   }
+  100% { transform: translate(450px,   0px);   } /* back to perihelion */
 }
 
     /* Sun */
