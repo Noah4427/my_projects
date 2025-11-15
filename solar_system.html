@@ -52,32 +52,35 @@
       pointer-events: none;
     }
 
-    /* HALLEY'S COMET (elliptical orbit around the Sun) */
+/* ========================= */
+/* HALLEY'S COMET           */
+/* ========================= */
 
 .halley-orbit {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 900px;      /* major axis */
-  height: 300px;     /* minor axis (eccentric orbit) */
+  width: 900px;      /* major axis of the ellipse */
+  height: 300px;     /* minor axis */
   margin-left: -450px;
   margin-top: -150px;
   border-radius: 50%;
   border: 1px dashed rgba(255, 255, 255, 0.25);
   transform-origin: center;
-  animation: halley-path 80s linear infinite; 
-  /* 80s = 1 Halley period in animation time */
+  /* >>> THIS makes it move <<< */
+  animation: halley-path 25s linear infinite;
 }
 
+/* rotation of the whole ellipse */
 @keyframes halley-path {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
 .halley {
   position: absolute;
   top: 50%;
-  left: 100%; /* comet sits on the rightmost point of ellipse */
+  left: 100%; /* comet sits at rightmost point of ellipse */
   transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
@@ -94,7 +97,7 @@
   content: "";
   position: absolute;
   top: 50%;
-  left: -8px; /* tail points backwards */
+  left: -8px;
   width: 120px;
   height: 4px;
   transform: translateY(-50%);
@@ -472,9 +475,10 @@
   <div class="solar-system">
     <div class="sun"></div>
 
-    <div class="halley-orbit">
-  <div class="halley"></div>
-</div>
+  <!-- Halley's Comet -->
+  <div class="halley-orbit">
+    <div class="halley"></div>
+  </div>
 
     <!-- Mercury -->
     <div class="orbit mercury-orbit">
