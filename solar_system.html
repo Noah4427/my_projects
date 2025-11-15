@@ -52,6 +52,63 @@
       pointer-events: none;
     }
 
+    /* HALLEY'S COMET (elliptical orbit around the Sun) */
+
+.halley-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;      /* major axis */
+  height: 300px;     /* minor axis (eccentric orbit) */
+  margin-left: -450px;
+  margin-top: -150px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  transform-origin: center;
+  animation: halley-path 80s linear infinite; 
+  /* 80s = 1 Halley period in animation time */
+}
+
+@keyframes halley-path {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.halley {
+  position: absolute;
+  top: 50%;
+  left: 100%; /* comet sits on the rightmost point of ellipse */
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 20% 20%, #ffffff, #ffe8a6 50%, #ff9000);
+  box-shadow:
+    0 0 10px rgba(255,255,200,0.9),
+    0 0 40px rgba(255,150,50,0.8),
+    0 0 90px rgba(255,120,0,0.5);
+}
+
+/* comet tail */
+.halley::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -8px; /* tail points backwards */
+  width: 120px;
+  height: 4px;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to left,
+    rgba(255,255,255,0.9),
+    rgba(255,220,150,0.5),
+    rgba(255,200,100,0.2),
+    transparent
+  );
+  filter: blur(1px);
+  pointer-events: none;
+}
+
     /* Sun */
 
     .sun {
@@ -414,6 +471,10 @@
 <body>
   <div class="solar-system">
     <div class="sun"></div>
+
+    <div class="halley-orbit">
+  <div class="halley"></div>
+</div>
 
     <!-- Mercury -->
     <div class="orbit mercury-orbit">
